@@ -21,6 +21,48 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: Application; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Application" (
+    "applicationId" integer NOT NULL,
+    num text NOT NULL,
+    n_raion text NOT NULL,
+    fio text NOT NULL,
+    years text NOT NULL,
+    info text NOT NULL,
+    kontrakt text NOT NULL,
+    nagrads text NOT NULL,
+    geom text NOT NULL,
+    status boolean DEFAULT false NOT NULL
+);
+
+
+ALTER TABLE public."Application" OWNER TO postgres;
+
+--
+-- Name: Application_applicationId_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Application_applicationId_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Application_applicationId_seq" OWNER TO postgres;
+
+--
+-- Name: Application_applicationId_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Application_applicationId_seq" OWNED BY public."Application"."applicationId";
+
+
+--
 -- Name: Role; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -111,6 +153,13 @@ CREATE TABLE public._prisma_migrations (
 ALTER TABLE public._prisma_migrations OWNER TO postgres;
 
 --
+-- Name: Application applicationId; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Application" ALTER COLUMN "applicationId" SET DEFAULT nextval('public."Application_applicationId_seq"'::regclass);
+
+
+--
 -- Name: Role roleId; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -122,6 +171,15 @@ ALTER TABLE ONLY public."Role" ALTER COLUMN "roleId" SET DEFAULT nextval('public
 --
 
 ALTER TABLE ONLY public."User" ALTER COLUMN "userId" SET DEFAULT nextval('public."User_userId_seq"'::regclass);
+
+
+--
+-- Data for Name: Application; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Application" ("applicationId", num, n_raion, fio, years, info, kontrakt, nagrads, geom, status) FROM stdin;
+1	8	Тюльганский район	test	14.10.1961 – 02.01.1982	qwertyuiop	Боевые действия в Афганистане	Награжден Орденом Красной Звезды (посмертно)	POINT (6266521.594576891 6868838.029030548)	f
+\.
 
 
 --
@@ -139,6 +197,7 @@ COPY public."Role" ("roleId", "roleName") FROM stdin;
 --
 
 COPY public."User" ("userId", "fullName", "phoneNumber", email, password, "roleId") FROM stdin;
+1	Админов Админ Админович	+79510341677	admin@yandex.ru	$2b$10$JNij6hXP6YLRr5FMs0AaBuPppVeY3ACUwyGQs6l5O7I/o7Knu2A4C	1
 \.
 
 
@@ -148,7 +207,15 @@ COPY public."User" ("userId", "fullName", "phoneNumber", email, password, "roleI
 
 COPY public._prisma_migrations (id, checksum, finished_at, migration_name, logs, rolled_back_at, started_at, applied_steps_count) FROM stdin;
 8a27a701-0825-4b6b-b438-6e887f8e4bec	fe9e88d8986f9eb250b20a1addebc9d70b51430bf4d777096425b903c99a904e	2025-02-14 22:37:01.280188+05	20250214173701_add_users	\N	\N	2025-02-14 22:37:01.251641+05	1
+96d9d876-0fc7-42a6-9b8f-3e98e41e0717	921abd9fb2e505f73352434032828746a81e3399bbd478589fbb30a4c383575f	2025-02-16 13:07:48.15724+05	20250216080747_add_application	\N	\N	2025-02-16 13:07:47.955567+05	1
 \.
+
+
+--
+-- Name: Application_applicationId_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Application_applicationId_seq"', 1, true);
 
 
 --
@@ -162,7 +229,15 @@ SELECT pg_catalog.setval('public."Role_roleId_seq"', 2, true);
 -- Name: User_userId_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."User_userId_seq"', 1, false);
+SELECT pg_catalog.setval('public."User_userId_seq"', 1, true);
+
+
+--
+-- Name: Application Application_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Application"
+    ADD CONSTRAINT "Application_pkey" PRIMARY KEY ("applicationId");
 
 
 --

@@ -20,6 +20,12 @@ export class UserService {
         return findUser ? false : true
     }
 
+    async getUser(data: LoginUser){
+        return await this.prisma.user.findUnique({
+            where: { phoneNumber: data.phoneNumber, email: data.email },
+        });
+    }
+
     async register(data: RegisterUser){
         const {fullName, phoneNumber, email, password} = data
 

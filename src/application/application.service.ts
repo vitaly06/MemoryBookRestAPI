@@ -58,4 +58,8 @@ export class ApplicationService {
             where: {applicationId: Number(id)}
         })
     }
+
+    async allApplications(){
+        return this.prisma.application.findMany()
+    }
 }

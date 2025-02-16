@@ -1,4 +1,4 @@
-import { Controller, Param, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post } from '@nestjs/common';
 import { ApplicationService } from './application.service';
 
 @Controller('application')
@@ -13,5 +13,10 @@ export class ApplicationController {
   @Post("denied/:id")
   async deniedApplication(@Param("id") id: number){
     this.applicationService.deniedApplication(id)
+  }
+
+  @Get("all")
+  async getAllApplications(){
+    return this.applicationService.allApplications()
   }
 }

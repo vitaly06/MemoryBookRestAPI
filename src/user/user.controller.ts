@@ -21,11 +21,12 @@ export class UserController {
   @Post("login")
   async login(@Body() data: LoginUser, @Res({passthrough: true}) response: Response){
     const token = await this.userService.login(data)
+    const user = await this.userService.getUser(data)
     response.cookie('jwt', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict'
     })
-    return {message: "Успешная авторизация"}
+    return {user}
   }
 }

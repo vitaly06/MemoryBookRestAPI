@@ -12,23 +12,35 @@ export class AppService {
       Accept: '*/*',
       Authorization: auth,
     };
-
+  
     try {
       const response = await this.httpService.get(`https://geois2.orb.ru/api/resource/8860/feature/`, { headers }).toPromise();
-      const res = response.data;
-
       
+      if (!response || !response.data) {
+        throw new Error('No data received from the API');
+      }
+  
+      const res = response.data;
+  
+      if (!Array.isArray(res)) {
+        throw new Error('Response data is not an array');
+      }
+  
       const n_raionValues = Array.from(new Set(res.map(item => item.fields.n_raion)));
       const kontraktValues = Array.from(new Set(res.map(item => item.fields.kontrakt)));
-
-
+  
       return {
         n_raion: n_raionValues,
         kontrakt: kontraktValues,
       };
     } catch (error) {
-      console.error(error);
-      throw error;
+      // Логирование ошибки с дополнительной информацией
+      console.error('Error fetching resource features:', error.message);
+      if (error.response) {
+        console.error('Response data:', error.response.data);
+        console.error('Response status:', error.response.status);
+      }
+      throw new Error('Failed to fetch resource features');
     }
   }
 

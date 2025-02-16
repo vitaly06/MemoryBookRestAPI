@@ -6,13 +6,12 @@ import { firstValueFrom } from 'rxjs';
 export class AuthService {
   private readonly clientId = 31; 
   private readonly clientSecret = '2OVdocElXSN6G7XLmoX2Vd3uh0fbsVq1FfDTugKZ'; 
-  private readonly redirectUri = 'https://hackathon-12.orb.ru/profile/login_from_rsaag';
+  private readonly redirectUri = 'http://hackathon-12.orb.ru/profile/login_from_rsaag';
 
   constructor(private readonly httpService: HttpService) {}
 
-  async getAuthorizationUrl(state: string): Promise<string> {
-    const scope = encodeURIComponent('email+auth_method');
-    return `https://lk.orb.ru/oauth/authorize?client_id=${this.clientId}&redirect_uri=${encodeURIComponent(this.redirectUri)}&response_type=code&scope=${scope}&state=${encodeURIComponent(state)}`;
+  async getAuthorizationUrl(): Promise<string> {
+    return `https://lk.orb.ru/oauth/authorize?client_id=31&redirect_uri=http://hackathon-12.orb.ru/profile/login_from_rsaag&response_type=code&scope=email+auth_method&state=http://hackathon-12.orb.ru`;
   }
 
   async getTokens(code: string): Promise<any> {

@@ -7,8 +7,8 @@ export class AuthController {
 
   @Get('login')
   @Redirect()
-  async login(@Query('state') state: string) {
-    const url = await this.authService.getAuthorizationUrl(state);
+  async login() {
+    const url = await this.authService.getAuthorizationUrl();
     return { url }; 
   }
 
