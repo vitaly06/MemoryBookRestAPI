@@ -24,3 +24,16 @@ model Role{
   roleName String
   users User[]
 }
+
+model Application{
+  applicationId Int @id @default(autoincrement())
+  num String
+  n_raion String
+  fio String
+  years String
+  info String
+  kontrakt String
+  nagrads String
+  geom String
+  status Boolean @default(false)
+}
