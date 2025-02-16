@@ -71,21 +71,7 @@ export class HeroesController {
 
  @Post('addPerson')
   async addPerson(@Body() personData: any) {
-    // const auth = 'Basic ' + Buffer.from('hackathon_36:hackathon_36_25').toString('base64');
-    // const headers = {
-    //   Accept: '*/*',
-    //   Authorization: auth,
-    //   'Content-Type': 'application/json', 
-    // };
-    // try {
-    //   const response = await this.httpService.post(`https://geois2.orb.ru/api/resource/8860/feature/`, personData, { headers }).toPromise();
-      
-    //   return response.data; 
-    // } catch (error) {
-    //   console.error(error);
-    //   throw error; 
-    // }
-    
+    this.appService.addPerson(personData)
   }
 
  

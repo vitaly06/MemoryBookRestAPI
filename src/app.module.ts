@@ -4,10 +4,12 @@ import { HeroesController } from './heroes.controller';
 import { AppService } from './app.service';
 import { HttpModule } from '@nestjs/axios';
 import { AuthModule } from './auth/auth.module';
+import { PrismaService } from './PrismaService';
+import { ApplicationModule } from './application/application.module';
 
 @Module({
-  imports: [UserModule, HttpModule, AuthModule],
+  imports: [UserModule, HttpModule, AuthModule, ApplicationModule],
   controllers: [HeroesController],
-  providers: [AppService]
+  providers: [AppService, PrismaService]
 })
 export class AppModule {}
