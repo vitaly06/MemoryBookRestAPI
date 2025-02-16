@@ -39,4 +39,28 @@ export class HeroesController {
       throw error;
     }
   }
+
+  @Get('search')
+  async searchByFio(@Query('fio') fio: string) {
+    const auth = 'Basic ' + Buffer.from('hackathon_36:hackathon_36_25').toString('base64');
+    const headers = {
+      Accept: '*/*',
+      Authorization: auth,
+    };
+
+    try {
+      const response = await this.httpService.get(`https://geois2.orb.ru/api/resource/8860/feature/`, { headers }).toPromise();
+      const res = response.data;
+
+      
+      const filteredData = res.filter(item => 
+        item.fields.fio && item.fields.fio.toLowerCase().includes(fio.toLowerCase())
+      );
+
+      return filteredData; 
+    } catch (error) {
+      console.error(error); 
+      throw error; 
+    }
+  }
 }
